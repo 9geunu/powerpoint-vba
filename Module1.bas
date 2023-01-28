@@ -74,16 +74,15 @@ Public Sub SetUserName()
     val = InputBox("Enter player name.", "OK")
     UserName = val
     Debug.Print "You are " & UserName & "."
-    Call SetReplaceStringInCurrentSlide("xx", UserName)
+    Call ReplaceStringInCurrentSlide("xx", UserName)
     Call Refresh
     
 End Sub
 
-Public Sub SetReplaceStringInCurrentSlide(fWord As String, sRepWord As String)
+'Reference : https://www.access-programmers.co.uk/forums/threads/using-access-vba-to-change-a-powerpoint-text-box-value.315303/
+Public Sub ReplaceStringInCurrentSlide(fWord As String, sRepWord As String)
     
     Dim shp As shape
-    Dim ShpTxt As TextRange
-    Dim TmpTxt As TextRange
     Dim FindWord As Variant
     Dim ReplaceWord As Variant
     Dim iWords As Integer
@@ -107,11 +106,10 @@ Public Sub SetReplaceStringInCurrentSlide(fWord As String, sRepWord As String)
     Debug.Print "" & fWord & " updated to " & sRepWord & " " & iWords & " times"
 
 End Sub
-Public Sub SetReplaceString(fWord As String, sRepWord As String)
+
+Public Sub ReplaceStringInAllSlides(fWord As String, sRepWord As String)
     
     Dim shp As shape
-    Dim ShpTxt As TextRange
-    Dim TmpTxt As TextRange
     Dim FindWord As Variant
     Dim ReplaceWord As Variant
     Dim iWords As Integer
@@ -146,7 +144,7 @@ End Sub
 Sub OnSlideShowPageChange(ByVal SSW As SlideShowWindow)
     
     If SSW.View.CurrentShowPosition = 110 Then
-        Call SetReplaceStringInCurrentSlide("RP", "" & RelationshipPoint)
+        Call ReplaceStringInCurrentSlide("RP", "" & RelationshipPoint)
         Call Refresh
     End If
     
@@ -189,6 +187,7 @@ Public Sub GoToSlide(shape As shape)
     End With
     
 End Sub
+
 Public Sub GoToSlideWithLong(destination As Long)
 
     With ActivePresentation.SlideShowWindow.View
@@ -216,6 +215,7 @@ Public Sub IncrementYongJaeScore()
     Call GoToNextSlide
     
 End Sub
+
 Public Sub UpdateScoreAndGoTo(shp As shape)
     'G 1 43
     'Y 1 45
@@ -249,7 +249,6 @@ Public Sub UpdateScoreAndGoTo(shp As shape)
     Call GoToSlideWithLong(destination)
     
 End Sub
-
 
 Public Sub IncrementGeunwooScore()
 
